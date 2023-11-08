@@ -14,10 +14,10 @@ def text_to_speech(text, output_file):
 
 if __name__ == "__main__":
     # Input text
-    text = "Hello, this is your mom who is gay"
+    text = "Wow!, this minecraft parkour is so hard! But i know with hard work and dedication, i can do it!"
 
     # Specify the output file name
-    output_file = "output.mp3"
+    output_file = "TextToSpeechOutput.mp3"
     
     # Call the function
     text_to_speech(text, output_file)
