@@ -1,3 +1,5 @@
-# Ignore MP3 and MP4 files
+# Ignore everything in this directory
 *.mp3
 *.mp4
+*.txt
+*.srt

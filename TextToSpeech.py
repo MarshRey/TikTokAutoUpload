@@ -8,7 +8,7 @@ def text_to_speech(text, output_file):
     # Save the speech as an MP3 file
     try:
         tts.save(output_file)
-        print("File saved successfully")
+        print("TextToSpeechOutput.mp3 file created")
     except Exception as e:
         print(f"An error occurred: {e}")
 
