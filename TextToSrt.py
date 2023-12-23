@@ -1,7 +1,7 @@
 # importing integrated modules
 import os
 import re
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 def text_to_srt(file_path):
     # initializing subtitle length in seconds

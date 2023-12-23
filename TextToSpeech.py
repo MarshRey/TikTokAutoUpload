@@ -1,5 +1,11 @@
 # run pip3 install gTTS to install the gTTS library
 from gtts import gTTS
+from TextToSrt import text_to_srt
+
+# importing integrated modules
+import os
+
+
 
 def text_to_speech(text, output_file):
     # Initialize the gTTS object
@@ -12,12 +18,58 @@ def text_to_speech(text, output_file):
     except Exception as e:
         print(f"An error occurred: {e}")
 
+
+
 if __name__ == "__main__":
-    # Input text
-    text = "Wow!, this minecraft parkour is so hard! But i know with hard work and dedication, i can do it!"
+   # get path to text file
+    inputtxt = 'text.txt'
+    text_file_path = os.path.join(os.path.dirname(__file__), inputtxt)
+    
+    # parse text file into a format for subtitles
+    # Open the input and output files
+    text_file_name = "text.txt"
+    parced_text_file_name = "parced_text_for_srt.txt"
+        
+    with open(text_file_name, 'r') as input_file, open(parced_text_file_name, 'w') as output_file, open("edited_text_file_for_tts.txt", 'w') as output_tts_file:
+        # Read the content of the input file
+        text = input_file.read()
+
+        # Split the text into words
+        words = text.split()
+
+        # Write each word followed by a blank line to the output file
+        word_count = 0
+        for word in words:
+            # make srt text file
+            if word_count < 100: # number of words wanted in a video    
+                output_file.write(word + '\n\n')
+                word_count += 1
+            else:
+                break
+            
+            # make text file for tts
+            if word == "AITA":
+                output_tts_file.write("Am I The Asshole?")
+            else:
+                output_tts_file.write(word)
+            
+    print("Parced_text_for_srt.txt and edited_text_file_for_tts.txt created")
+    
+    # get path to parced text file
+    parced_text_file_path = os.path.join(os.path.dirname(__file__), parced_text_file_name)
+    
+    # convert the text file to a subtitle file
+    text_to_srt(parced_text_file_path)
+
+    # Open the file for reading
+    with open("edited_text_file_for_tts.txt", 'r') as file:
+        # Read the entire content of the file into a single string
+        file_content = file.read()
+
+    text = file_content
 
     # Specify the output file name
-    output_file = "TextToSpeechOutput.mp3"
+    output_file = "TextToSpeechTestOutput.mp3"
     
     # Call the function
     text_to_speech(text, output_file)

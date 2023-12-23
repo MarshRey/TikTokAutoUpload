@@ -4,6 +4,8 @@
 # moviepy also needs the imagemagick library to be installed
 # run 'brew install imagemagick' to install imagemagick
 
+# imagemagick also has weord dependencies, so run the following commands to install them
+
 # run 'pip3 install moviepy' to install the moviepy library
 from moviepy.editor import *
 from moviepy.video.tools.subtitles import SubtitlesClip
@@ -18,10 +20,10 @@ def combine_video_and_audio(video_file, audio_file, output_file):
     video_clip = video_clip.set_audio(audio_clip)
     
     # generator for subtitles
-    generator = lambda txt: TextClip(txt, font='Arial', fontsize=16, color='white')
+    generator = lambda txt: TextClip(txt, font='Arial', fontsize=35, color='white')
     
     # create subtitles clip
-    subs = SubtitlesClip('subtitles.srt', generator)
+    subs = SubtitlesClip('synced.srt', generator)
     subtitles = SubtitlesClip(subs, generator)
     
     # add subtitles to video
