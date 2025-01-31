@@ -20,14 +20,14 @@ def combine_video_and_audio(video_file, audio_file, output_file):
     video_clip = video_clip.set_audio(audio_clip)
     
     # generator for subtitles
-    generator = lambda txt: TextClip(txt, font='Arial', fontsize=35, color='white')
+    # generator = lambda txt: TextClip(txt, font='Arial', fontsize=35, color='white')
     
     # create subtitles clip
-    subs = SubtitlesClip('synced.srt', generator)
-    subtitles = SubtitlesClip(subs, generator)
+    # subs = SubtitlesClip('synced.srt', generator)
+    # subtitles = SubtitlesClip(subs, generator)
     
-    # add subtitles to video
-    video_clip = CompositeVideoClip([video_clip, subtitles.set_position(('center'))])
+    # add subtitles to video , subtitles.set_position(('center'))
+    video_clip = CompositeVideoClip([video_clip])
     
     # Write the merged video with the audio to a new file
     video_clip.write_videofile(output_file, codec="libx264")
@@ -38,13 +38,24 @@ def combine_video_and_audio(video_file, audio_file, output_file):
     
 if __name__ == "__main__":
     # Specify the input video file name
-    video_file = "MinecraftParkour.mp4"
+    video_file = "Video.mp4"
     
     # Specify the input audio file name
     audio_file = "TextToSpeechOutput.mp3"
     
     # Specify the output file name
     output_file = "output_video.mp4"
+    
+    from TTS.api import TTS
+    tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2", gpu=True)
+
+    # generate speech by cloning a voice using default settings
+    tts.tts_to_file(text="It took me quite a long time to develop a voice, and now that I have it I'm not going to be silent.",
+                    file_path="output.wav",
+                    speaker_wav=["/path/to/target/speaker.wav"],
+                    language="en",
+                    split_sentences=True
+                    )
     
     # Call the function
     combine_video_and_audio(video_file, audio_file, output_file)
